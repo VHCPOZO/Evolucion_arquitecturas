@@ -3,81 +3,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema Espagueti de Turnos Médicos</title>
+    <title>Inicio - Sistema de Turnos Médicos</title>
     <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
     <header>
-        <h1>Sistema Espagueti de Turnos Médicos</h1>
-        <p>Interfaz visual simple para demostrar el backend en <strong>Java + Spring Boot</strong>.</p>
+        <div class="header-content">
+            <h1>Sistema de Turnos Médicos</h1>
+            <p>Elige un módulo para gestionar especialidades, pacientes, médicos, turnos o consultas.</p>
+        </div>
     </header>
 
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="especialidades.html" class="nav-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link">Médicos</a>
+        <a href="turnos.html" class="nav-link">Turnos</a>
+        <a href="consultas.html" class="nav-link">Consultas</a>
+    </nav>
+
     <main>
-        <section>
-            <h2>Registrar especialidad</h2>
-            <form id="especialidad-form">
-                <input type="text" name="nombre" placeholder="Nombre" required />
-                <input type="text" name="descripcion" placeholder="Descripción" />
-                <button type="submit">Registrar especialidad</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Registrar paciente</h2>
-            <form id="paciente-form">
-                <input type="text" name="nombre" placeholder="Nombre" required />
-                <input type="text" name="apellido" placeholder="Apellido" required />
-                <input type="text" name="cedula" placeholder="Cédula" required />
-                <input type="text" name="telefono" placeholder="Teléfono" />
-                <input type="email" name="correo" placeholder="Correo" />
-                <button type="submit">Registrar paciente</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Registrar médico</h2>
-            <form id="medico-form">
-                <input type="text" name="nombre" placeholder="Nombre" required />
-                <input type="text" name="apellido" placeholder="Apellido" required />
-                <input type="text" name="cedulaProfesional" placeholder="Cédula profesional" required />
-                <input type="text" name="telefono" placeholder="Teléfono" />
-                <input type="email" name="email" placeholder="Correo" />
-                <input type="number" name="especialidadId" placeholder="ID especialidad" required />
-                <button type="submit">Registrar médico</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Crear turno</h2>
-            <form id="turno-form">
-                <input type="number" name="paciente_id" placeholder="Paciente ID" required />
-                <input type="number" name="medico_id" placeholder="Médico ID" required />
-                <input type="datetime-local" name="fecha_hora" required />
-                <input type="text" name="motivo_consulta" placeholder="Motivo" />
-                <button type="submit">Crear turno</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Cancelar turno</h2>
-            <form id="cancelar-form">
-                <input type="number" name="id" placeholder="ID turno" required />
-                <input type="text" name="razon" placeholder="Razón de cancelación" />
-                <button type="submit">Cancelar turno</button>
-            </form>
-        </section>
-
-        <section>
-            <h2>Consultas rápidas</h2>
-            <button id="listar-turnos">Listar turnos</button>
-            <button id="listar-pacientes">Listar pacientes</button>
-            <button id="listar-medicos">Listar médicos</button>
-        </section>
-
-        <section>
-            <h2>Resultado</h2>
-            <pre id="output">Resultado aparecerá aquí.</pre>
-        </section>
+        <div class="card">
+            <p class="section-title">Bienvenido</p>
+            <p>Esta aplicación usa varias páginas HTML. Cada módulo está en su propia página para mantener una navegación clara y ordenada.</p>
+            <ul>
+                <li>Especialidades: registrar nuevas especialidades</li>
+                <li>Pacientes: registrar nuevos pacientes</li>
+                <li>Médicos: registrar nuevos médicos</li>
+                <li>Turnos: crear o cancelar turnos</li>
+                <li>Consultas: ver listados y resultados</li>
+            </ul>
+        </div>
     </main>
 
     <script src="./app.js"></script>

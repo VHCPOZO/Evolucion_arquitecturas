@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pacientes - Sistema de Turnos Médicos</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Pacientes</h1>
+            <p>Registra nuevos pacientes en el sistema.</p>
+        </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="especialidades.html" class="nav-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link active-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link">Médicos</a>
+        <a href="turnos.html" class="nav-link">Turnos</a>
+        <a href="consultas.html" class="nav-link">Consultas</a>
+    </nav>
+
+    <main>
+        <div class="card">
+            <p class="section-title">Registrar paciente</p>
+            <form id="paciente-form">
+                <input type="text" name="nombre" placeholder="Nombre" required />
+                <input type="text" name="apellido" placeholder="Apellido" required />
+                <input type="text" name="cedula" placeholder="Cédula" required />
+                <input type="text" name="telefono" placeholder="Teléfono" />
+                <input type="email" name="correo" placeholder="Correo" />
+                <button type="submit">Registrar paciente</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

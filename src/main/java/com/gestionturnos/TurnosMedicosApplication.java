@@ -1,4 +1,4 @@
-package com.gestionturnos.app;
+package com.gestionturnos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class TurnosMedicosApplication {
     public static void main(String[] args) {
         SpringApplication.run(TurnosMedicosApplication.class, args);
     }
-
 }

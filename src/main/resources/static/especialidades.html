@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Especialidades - Sistema de Turnos Médicos</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Especialidades</h1>
+            <p>Registra nuevas especialidades médicas.</p>
+        </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="especialidades.html" class="nav-link active-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link">Médicos</a>
+        <a href="turnos.html" class="nav-link">Turnos</a>
+        <a href="consultas.html" class="nav-link">Consultas</a>
+    </nav>
+
+    <main>
+        <div class="card">
+            <p class="section-title">Registrar especialidad</p>
+            <form id="especialidad-form">
+                <input type="text" name="nombre" placeholder="Nombre" required />
+                <input type="text" name="descripcion" placeholder="Descripción" />
+                <button type="submit">Registrar especialidad</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

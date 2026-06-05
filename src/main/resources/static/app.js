@@ -1,12 +1,16 @@
 const output = document.getElementById('output');
-const apiBase = '/api/espagueti';
+const apiBase = '/api/v1';
 
 function showResult(result) {
-    output.textContent = JSON.stringify(result, null, 2);
+    if (output) {
+        output.textContent = JSON.stringify(result, null, 2);
+    }
 }
 
 function showError(error) {
-    output.textContent = 'ERROR: ' + error;
+    if (output) {
+        output.textContent = 'ERROR: ' + error;
+    }
 }
 
 async function postJson(url, body) {
@@ -16,7 +20,12 @@ async function postJson(url, body) {
         body: JSON.stringify(body)
     });
     const text = await response.text();
-    return response.ok ? text : Promise.reject(text);
+    if (!response.ok) return Promise.reject(text);
+    try {
+        return JSON.parse(text);
+    } catch {
+        return text;
+    }
 }
 
 async function putJson(url, body) {
@@ -26,7 +35,12 @@ async function putJson(url, body) {
         body: JSON.stringify(body)
     });
     const text = await response.text();
-    return response.ok ? text : Promise.reject(text);
+    if (!response.ok) return Promise.reject(text);
+    try {
+        return JSON.parse(text);
+    } catch {
+        return text;
+    }
 }
 
 async function getJson(url) {
@@ -35,10 +49,16 @@ async function getJson(url) {
     return response.ok ? JSON.parse(text) : Promise.reject(text);
 }
 
-const especialidadForm = document.getElementById('especialidad-form');
-especialidadForm.addEventListener('submit', async event => {
+function bindForm(formId, handler) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', handler);
+}
+
+bindForm('especialidad-form', async event => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(especialidadForm));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     try {
         const result = await postJson(`${apiBase}/especialidades`, data);
         showResult(result);
@@ -47,10 +67,10 @@ especialidadForm.addEventListener('submit', async event => {
     }
 });
 
-const pacienteForm = document.getElementById('paciente-form');
-pacienteForm.addEventListener('submit', async event => {
+bindForm('paciente-form', async event => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(pacienteForm));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     try {
         const result = await postJson(`${apiBase}/pacientes`, data);
         showResult(result);
@@ -59,10 +79,10 @@ pacienteForm.addEventListener('submit', async event => {
     }
 });
 
-const medicoForm = document.getElementById('medico-form');
-medicoForm.addEventListener('submit', async event => {
+bindForm('medico-form', async event => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(medicoForm));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     try {
         const result = await postJson(`${apiBase}/medicos`, data);
         showResult(result);
@@ -71,10 +91,10 @@ medicoForm.addEventListener('submit', async event => {
     }
 });
 
-const turnoForm = document.getElementById('turno-form');
-turnoForm.addEventListener('submit', async event => {
+bindForm('turno-form', async event => {
     event.preventDefault();
-    const formData = new FormData(turnoForm);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const body = {
         paciente_id: parseInt(formData.get('paciente_id'), 10),
         medico_id: parseInt(formData.get('medico_id'), 10),
@@ -89,10 +109,10 @@ turnoForm.addEventListener('submit', async event => {
     }
 });
 
-const cancelarForm = document.getElementById('cancelar-form');
-cancelarForm.addEventListener('submit', async event => {
+bindForm('cancelar-form', async event => {
     event.preventDefault();
-    const data = Object.fromEntries(new FormData(cancelarForm));
+    const form = event.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     const turnoId = data.id;
     const body = { razon: data.razon || 'Sin especificar' };
     try {
@@ -103,32 +123,39 @@ cancelarForm.addEventListener('submit', async event => {
     }
 });
 
-const listarTurnos = document.getElementById('listar-turnos');
-listarTurnos.addEventListener('click', async () => {
-    try {
-        const result = await getJson(`${apiBase}/turnos`);
-        showResult(result);
-    } catch (error) {
-        showError(error);
-    }
-});
+const botonTurnos = document.getElementById('listar-turnos');
+if (botonTurnos) {
+    botonTurnos.addEventListener('click', async () => {
+        try {
+            const result = await getJson(`${apiBase}/turnos`);
+            showResult(result);
+        } catch (error) {
+            showError(error);
+        }
+    });
+}
 
-const listarPacientes = document.getElementById('listar-pacientes');
-listarPacientes.addEventListener('click', async () => {
-    try {
-        const result = await getJson(`${apiBase}/pacientes`);
-        showResult(result);
-    } catch (error) {
-        showError(error);
-    }
-});
+const botonPacientes = document.getElementById('listar-pacientes');
+if (botonPacientes) {
+    botonPacientes.addEventListener('click', async () => {
+        try {
+            const result = await getJson(`${apiBase}/pacientes`);
+            showResult(result);
+        } catch (error) {
+            showError(error);
+        }
+    });
+}
 
-const listarMedicos = document.getElementById('listar-medicos');
-listarMedicos.addEventListener('click', async () => {
-    try {
-        const result = await getJson(`${apiBase}/medicos`);
-        showResult(result);
-    } catch (error) {
-        showError(error);
-    }
-});
+const botonMedicos = document.getElementById('listar-medicos');
+if (botonMedicos) {
+    botonMedicos.addEventListener('click', async () => {
+        try {
+            const result = await getJson(`${apiBase}/medicos`);
+            showResult(result);
+        } catch (error) {
+            showError(error);
+        }
+    });
+}
+

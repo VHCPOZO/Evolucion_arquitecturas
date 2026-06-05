@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consultas - Sistema de Turnos Médicos</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Consultas</h1>
+            <p>Busca listados de turnos, pacientes y médicos.</p>
+        </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="especialidades.html" class="nav-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link">Médicos</a>
+        <a href="turnos.html" class="nav-link">Turnos</a>
+        <a href="consultas.html" class="nav-link active-link">Consultas</a>
+    </nav>
+
+    <main>
+        <div class="card">
+            <p class="section-title">Consultas rápidas</p>
+            <div class="button-row">
+                <button id="listar-turnos" type="button">Listar turnos</button>
+                <button id="listar-pacientes" type="button">Listar pacientes</button>
+                <button id="listar-medicos" type="button">Listar médicos</button>
+            </div>
+        </div>
+        <div class="card result-panel">
+            <p class="section-title">Resultado</p>
+            <pre id="output" aria-live="polite">Resultado aparecerá aquí.</pre>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

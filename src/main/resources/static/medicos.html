@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Médicos - Sistema de Turnos Médicos</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Médicos</h1>
+            <p>Registra nuevos médicos y su especialidad.</p>
+        </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="especialidades.html" class="nav-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link active-link">Médicos</a>
+        <a href="turnos.html" class="nav-link">Turnos</a>
+        <a href="consultas.html" class="nav-link">Consultas</a>
+    </nav>
+
+    <main>
+        <div class="card">
+            <p class="section-title">Registrar médico</p>
+            <form id="medico-form">
+                <input type="text" name="nombre" placeholder="Nombre" required />
+                <input type="text" name="apellido" placeholder="Apellido" required />
+                <input type="text" name="cedulaProfesional" placeholder="Cédula profesional" required />
+                <input type="text" name="telefono" placeholder="Teléfono" />
+                <input type="email" name="email" placeholder="Correo" />
+                <input type="number" name="especialidadId" placeholder="ID especialidad" required />
+                <button type="submit">Registrar médico</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>

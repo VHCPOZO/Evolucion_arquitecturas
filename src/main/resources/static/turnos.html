@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turnos - Sistema de Turnos Médicos</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Turnos</h1>
+            <p>Crea y cancela turnos para pacientes y médicos.</p>
+        </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Navegación principal">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="especialidades.html" class="nav-link">Especialidades</a>
+        <a href="pacientes.html" class="nav-link">Pacientes</a>
+        <a href="medicos.html" class="nav-link">Médicos</a>
+        <a href="turnos.html" class="nav-link active-link">Turnos</a>
+        <a href="consultas.html" class="nav-link">Consultas</a>
+    </nav>
+
+    <main>
+        <div class="card">
+            <p class="section-title">Crear turno</p>
+            <form id="turno-form">
+                <input type="number" name="paciente_id" placeholder="Paciente ID" required />
+                <input type="number" name="medico_id" placeholder="Médico ID" required />
+                <input type="datetime-local" name="fecha_hora" required />
+                <input type="text" name="motivo_consulta" placeholder="Motivo" />
+                <button type="submit">Crear turno</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <p class="section-title">Cancelar turno</p>
+            <form id="cancelar-form">
+                <input type="number" name="id" placeholder="ID turno" required />
+                <input type="text" name="razon" placeholder="Razón de cancelación" />
+                <button type="submit">Cancelar turno</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
