@@ -1,5 +1,8 @@
 # Arquitectura Monolítica por Capas — Turnos Médicos
 
+> **Documento histórico (referencia).** La arquitectura vigente del proyecto es **Domain-Driven Design**.
+> Consulta el documento oficial: **[ARQUITECTURA_DDD.md](ARQUITECTURA_DDD.md)**
+
 Documento para presentación universitaria. Stack: **Java 17**, **Spring Boot 3**, **Spring Data JPA**, **PostgreSQL**, **Maven**.
 
 ---

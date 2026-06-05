@@ -1,7 +1,7 @@
 package com.gestionturnos.presentation.exception;
 
-import com.gestionturnos.service.exception.BusinessException;
-import com.gestionturnos.service.exception.ResourceNotFoundException;
+import com.gestionturnos.domain.shared.DomainException;
+import com.gestionturnos.domain.shared.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,13 +13,13 @@ import java.time.Instant;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleNotFound(ResourceNotFoundException ex) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleNotFound(EntityNotFoundException ex) {
         return build(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<ApiErrorResponse> handleBusiness(BusinessException ex) {
+    @ExceptionHandler(DomainException.class)
+    public ResponseEntity<ApiErrorResponse> handleDomain(DomainException ex) {
         return build(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 

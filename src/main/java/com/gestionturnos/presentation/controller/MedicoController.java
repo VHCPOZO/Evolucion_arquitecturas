@@ -1,9 +1,11 @@
 package com.gestionturnos.presentation.controller;
 
+import com.gestionturnos.application.medico.ListarMedicosUseCase;
+import com.gestionturnos.application.medico.RegistrarMedicoCommand;
+import com.gestionturnos.application.medico.RegistrarMedicoUseCase;
 import com.gestionturnos.presentation.dto.request.MedicoRequest;
 import com.gestionturnos.presentation.dto.response.MedicoResponse;
 import com.gestionturnos.presentation.mapper.MedicoMapper;
-import com.gestionturnos.service.MedicoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,18 +23,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MedicoController {
 
-    private final MedicoService medicoService;
+    private final RegistrarMedicoUseCase registrarMedicoUseCase;
+    private final ListarMedicosUseCase listarMedicosUseCase;
     private final MedicoMapper medicoMapper;
 
     @PostMapping
     public ResponseEntity<MedicoResponse> registrar(@Valid @RequestBody MedicoRequest request) {
-        var medico = medicoService.registrar(request);
+        var medico = registrarMedicoUseCase.ejecutar(new RegistrarMedicoCommand(
+                request.nombre(),
+                request.apellido(),
+                request.cedulaProfesional(),
+                request.telefono(),
+                request.email(),
+                request.especialidadId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(medicoMapper.toResponse(medico));
     }
 
     @GetMapping
     public ResponseEntity<List<MedicoResponse>> listar() {
-        List<MedicoResponse> lista = medicoService.listar().stream()
+        List<MedicoResponse> lista = listarMedicosUseCase.ejecutar().stream()
                 .map(medicoMapper::toResponse)
                 .toList();
         return ResponseEntity.ok(lista);

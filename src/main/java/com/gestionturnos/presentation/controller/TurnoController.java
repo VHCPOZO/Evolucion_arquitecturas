@@ -1,11 +1,18 @@
 package com.gestionturnos.presentation.controller;
 
+import com.gestionturnos.application.agenda.ConsultarAgendaQuery;
+import com.gestionturnos.application.agenda.ConsultarAgendaUseCase;
+import com.gestionturnos.application.turno.CancelarTurnoCommand;
+import com.gestionturnos.application.turno.CancelarTurnoUseCase;
+import com.gestionturnos.application.turno.CrearTurnoCommand;
+import com.gestionturnos.application.turno.CrearTurnoUseCase;
+import com.gestionturnos.application.turno.ListarTurnosUseCase;
+import com.gestionturnos.application.turno.ObtenerTurnoUseCase;
 import com.gestionturnos.presentation.dto.request.CancelarTurnoRequest;
 import com.gestionturnos.presentation.dto.request.TurnoRequest;
 import com.gestionturnos.presentation.dto.response.AgendaMedicaResponse;
 import com.gestionturnos.presentation.dto.response.TurnoResponse;
 import com.gestionturnos.presentation.mapper.TurnoMapper;
-import com.gestionturnos.service.TurnoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +32,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TurnoController {
 
-    private final TurnoService turnoService;
+    private final CrearTurnoUseCase crearTurnoUseCase;
+    private final CancelarTurnoUseCase cancelarTurnoUseCase;
+    private final ListarTurnosUseCase listarTurnosUseCase;
+    private final ObtenerTurnoUseCase obtenerTurnoUseCase;
+    private final ConsultarAgendaUseCase consultarAgendaUseCase;
     private final TurnoMapper turnoMapper;
 
     @PostMapping("/turnos")
     public ResponseEntity<TurnoResponse> crear(@Valid @RequestBody TurnoRequest request) {
-        var turno = turnoService.crearTurno(request);
+        var turno = crearTurnoUseCase.ejecutar(new CrearTurnoCommand(
+                request.pacienteId(),
+                request.medicoId(),
+                request.fechaHora(),
+                request.motivoConsulta()));
         return ResponseEntity.status(HttpStatus.CREATED).body(turnoMapper.toResponse(turno));
     }
 
@@ -39,22 +54,23 @@ public class TurnoController {
             @PathVariable Long id,
             @RequestBody(required = false) CancelarTurnoRequest request) {
         String razon = request != null ? request.razon() : null;
-        var turno = turnoService.cancelar(id, razon);
+        var turno = cancelarTurnoUseCase.ejecutar(new CancelarTurnoCommand(id, razon));
         return ResponseEntity.ok(turnoMapper.toResponse(turno));
     }
 
     @GetMapping("/turnos")
     public ResponseEntity<List<TurnoResponse>> listar() {
-        return ResponseEntity.ok(turnoMapper.toResponseList(turnoService.listar()));
+        return ResponseEntity.ok(turnoMapper.toResponseList(listarTurnosUseCase.ejecutar()));
     }
 
     @GetMapping("/turnos/{id}")
     public ResponseEntity<TurnoResponse> obtener(@PathVariable Long id) {
-        return ResponseEntity.ok(turnoMapper.toResponse(turnoService.obtenerPorId(id)));
+        return ResponseEntity.ok(turnoMapper.toResponse(obtenerTurnoUseCase.ejecutar(id)));
     }
 
     @GetMapping("/medicos/{medicoId}/agenda")
     public ResponseEntity<AgendaMedicaResponse> agenda(@PathVariable Long medicoId) {
-        return ResponseEntity.ok(turnoService.consultarAgenda(medicoId));
+        var result = consultarAgendaUseCase.ejecutar(new ConsultarAgendaQuery(medicoId));
+        return ResponseEntity.ok(turnoMapper.toAgenda(result));
     }
 }
